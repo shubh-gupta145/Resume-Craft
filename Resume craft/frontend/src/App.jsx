@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar with reference to setActivePage */}
-      <Home_page setActivePage={setActivePage} />
+      <Navbar setActivePage={setActivePage} />
 
       {/* Page content */}
       <div className="pt-20 px-4 max-w-7xl mx-auto">

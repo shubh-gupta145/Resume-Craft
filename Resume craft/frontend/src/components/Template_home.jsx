@@ -89,7 +89,8 @@ function ResumeBuilderPro() {
     } finally {
       el.style.boxShadow = prev;
     }
-  };
+  };  
+
 
   const TemplateCard = ({ children, variant }) => {
     const base = "w-[794px] min-h-[1123px] p-8 rounded shadow-inner overflow-hidden";
@@ -499,49 +500,49 @@ function ResumeBuilderPro() {
               </div>
             ))}
 {/* Projects */}
-<label className="text-sm font-medium mt-3">Projects</label>
-<input
-  value={newProject.title}
-  onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
-  placeholder="Project Title"
-  className="border rounded-lg p-2 w-full mt-1"
-/>
-<textarea
-  value={newProject.description}
-  onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-  placeholder="Project Description"
-  className="border rounded-lg p-2 w-full mt-1"
-  rows={2}
-/>
-<button onClick={addProject} className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1">Add Project</button>
-{formData.projects.map((p, i) => (
-  <div key={i} className="flex justify-between items-center bg-gray-50 p-2 rounded mt-1">
-    <span>{p.title} — {p.description}</span>
-    <button onClick={() => removeProject(i)} className="text-red-500">✕</button>
-  </div>
-))}
+            <label className="text-sm font-medium mt-3">Projects</label>
+            <input
+              value={newProject.title}
+              onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
+              placeholder="Project Title"
+              className="border rounded-lg p-2 w-full mt-1"
+            />
+            <textarea
+              value={newProject.description}
+              onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
+              placeholder="Project Description"
+              className="border rounded-lg p-2 w-full mt-1"
+              rows={2}
+            />
+            <button onClick={addProject} className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1">Add Project</button>
+            {formData.projects.map((p, i) => (
+              <div key={i} className="flex justify-between items-center bg-gray-50 p-2 rounded mt-1">
+                <span>{p.title} — {p.description}</span>
+                <button onClick={() => removeProject(i)} className="text-red-500">✕</button>
+              </div>
+            ))}
 
-{/* Certifications */}
-<label className="text-sm font-medium mt-3">Certifications</label>
-<input
-  value={newCert.name}
-  onChange={(e) => setNewCert({ ...newCert, name: e.target.value })}
-  placeholder="Certification Name"
-  className="border rounded-lg p-2 w-full mt-1"
-/>
-<input
-  value={newCert.issuer}
-  onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
-  placeholder="Issued By"
-  className="border rounded-lg p-2 w-full mt-1"
-/>
-<button onClick={addCert} className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1">Add Certification</button>
-{formData.certifications.map((c, i) => (
-  <div key={i} className="flex justify-between items-center bg-gray-50 p-2 rounded mt-1">
-    <span>{c.name} — {c.issuer}</span>
-    <button onClick={() => removeCert(i)} className="text-red-500">✕</button>
-  </div>
-))}
+            {/* Certifications */}
+            <label className="text-sm font-medium mt-3">Certifications</label>
+            <input
+              value={newCert.name}
+              onChange={(e) => setNewCert({ ...newCert, name: e.target.value })}
+              placeholder="Certification Name"
+              className="border rounded-lg p-2 w-full mt-1"
+            />
+            <input
+              value={newCert.issuer}
+              onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
+              placeholder="Issued By"
+              className="border rounded-lg p-2 w-full mt-1"
+            />
+            <button onClick={addCert} className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1">Add Certification</button>
+            {formData.certifications.map((c, i) => (
+              <div key={i} className="flex justify-between items-center bg-gray-50 p-2 rounded mt-1">
+                <span>{c.name} — {c.issuer}</span>
+                <button onClick={() => removeCert(i)} className="text-red-500">✕</button>
+              </div>
+            ))}
 
           </div>
         </div>
@@ -560,7 +561,11 @@ function ResumeBuilderPro() {
             ))}
           </div>
 
-          <div id="resume-preview" className="mx-auto mt-4">{templates[selectedTemplate]}</div>
+          <div id="resume-preview" style={{
+                backgroundColor: "#16a34a", 
+                color: "#ffffff",           
+                }} className="mx-auto mt-4">{templates[selectedTemplate]}
+          </div>
 
           <button onClick={downloadPDF} className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg self-start">Download PDF</button>
         </div>

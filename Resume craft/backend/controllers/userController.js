@@ -51,15 +51,45 @@ async function getUsers(req,res) {
     } catch (error) {
         return res.status(500).json({
             success:false,
-            message:"Please try again",
+            message:"Users not exist",
             error:error.message
         })
 
     }
 
 }
+async function getUserbyID(req, res) {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "User fetched successfully",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error while fetching user"
+        });
+    }
+}
+
 module.exports={
     createUser,
-    getUsers
+    getUsers,
+    getUserbyID
 }
 

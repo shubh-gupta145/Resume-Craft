@@ -40,6 +40,42 @@ async function createUser(req,res) {
     }
 
 }
+async function login(req,res) {
+    const {email,password }=req.body;
+    try {
+        if (!email){
+            return res.status(400).json({
+                success: false ,
+                message:"Enter the email"});
+        }
+        if (!password){
+            return res.status(400).json({
+                success: false ,
+                message:"Enter the password"});
+        }
+        const checkUserExisting =await User.findOne({email});
+        if(!checkUserExisting){
+            return res.status(400).json({
+                success: false,
+                message:"User not existed"
+        })
+        }
+        if (checkUserExisting.password !== password)
+        return res.status(400).json({ message: "Incorrect password" });
+        return res.status(200).json({
+            success: true,
+            message:"logged in suceesfully",
+            user:{
+                name:checkUserExisting.name,
+                email:checkUserExisting.email
+            },
+        });    
+    }catch(error){
+        return res.status(500).json({
+            success: false ,
+            message:"login  unsucessfull"});
+    }    
+}        
 async function getUsers(req,res) {
     try {
         const user=await User.find().select("-password");
@@ -146,6 +182,7 @@ async function deleteUser(req, res) {
 
 module.exports={
     createUser,
+    login,
     getUsers,
     getUserbyID,
     updateUser,

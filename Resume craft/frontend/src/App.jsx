@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
-import AuthPage from './components/Auth';
 import ChatBot from './components/ATS';
-import FAQSection from './components/FAQ';
 import Template_home from './components/Template_home';
 import Resume_example from "./components/Resume_example";
 import Profile from "./components/profile";

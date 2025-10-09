@@ -86,10 +86,69 @@ async function getUserbyID(req, res) {
         });
     }
 }
+async function updateUser(req, res) {
+    const { id } = req.params;
+    const {name,email,password}= req.body;
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+        const updatedUser=await User.findByIdAndUpdate(id,{name,email,password})
+
+        return res.status(200).json({
+            success: true,
+            message: "User Updated successfully",
+            updatedUser: {
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error while updating user"
+        });
+    }
+}
+async function deleteUser(req, res) {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+        const deletedUser= await User.findByIdAndDelete(id);
+        return res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            deletedUser: {
+                _id: deletedUser._id,
+                name: deletedUser.name,
+                email: deletedUser.email
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error while deleting user"
+        });
+    }
+}
 
 module.exports={
     createUser,
     getUsers,
-    getUserbyID
+    getUserbyID,
+    updateUser,
+    deleteUser
 }
 

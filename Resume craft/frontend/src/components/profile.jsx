@@ -30,9 +30,10 @@ function Profile() {
         : formData;
 
       const res = await axios.post(url, bodyData);
-
-      alert(res.data.message || "Success!");
-      console.log(res.data);
+      if (res.data.success) {
+        localStorage.setItem("token", res.data.token); 
+        alert(res.data.message || "Success!");
+      }
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Something went wrong!");

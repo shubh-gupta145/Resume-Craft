@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import './App.css';
-import ChatBot from './components/ATS';
 import Template_home from './components/Template_home';
 import Resume_example from "./components/Resume_example";
 import Profile from "./components/profile";
 import Home_content from "./components/Home_content";
 import Navbar from "./components/Navbar";
+import ATS from "./components/ATS";
 
 function App() {
   const [activePage, setActivePage] = useState("home"); // Track which page to show
@@ -17,7 +17,7 @@ function App() {
       case "resume_example":
         return <Resume_example />;
       case "ATS":
-        return <ChatBot />;
+        return <ATS/>;
       case "Template":
         return <Template_home />;
               case "profile":

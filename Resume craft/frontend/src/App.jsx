@@ -1,44 +1,25 @@
-import React, { useState } from "react";
-import './App.css';
-import Template_home from './components/Template_home';
-import Resume_example from "./components/Resume_example";
-import Profile from "./components/profile";
-import Home_content from "./components/Home_content";
-import Navbar from "./components/Navbar";
-import ATS from "./components/ATS";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./components/Main components/Navbar";
+import Home_content from "./components/Main components/Home_content";
+import Resume_example from "./components/Main components/Resume_example";
+import ATS from "./components/Main components/ATS";
+import Profile from "./components/Main components/profile";
+import Template_home from "./components/Main components/Template_home";
 
 function App() {
-  const [activePage, setActivePage] = useState("home"); // Track which page to show
-
-  const renderPage = () => {
-    switch (activePage) {
-      case "home":
-        return <Home_content />;
-      case "resume_example":
-        return <Resume_example />;
-      case "ATS":
-        return <ATS/>;
-      case "Template":
-        return <Template_home />;
-              case "profile":
-        return <Profile/>;
-      default:
-        return <Navbar />;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar with reference to setActivePage */}
-      <Navbar setActivePage={setActivePage} />
-
-      {/* Page content */}
-      <div className="pt-20 px-4 max-w-7xl mx-auto">
-        {renderPage()}
-      </div>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home_content />} />
+        <Route path="/resume_example" element={<Resume_example />} />
+        <Route path="/ats" element={<ATS />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/template" element={<Template_home />} />
+      </Routes>
+    </>
   );
 }
 
 export default App;
-

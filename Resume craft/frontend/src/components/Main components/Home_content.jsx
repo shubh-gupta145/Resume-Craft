@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import FAQSection from "./FAQ";
-import FeaturesSection from "./Featuressections";
-import ResumeCarousel from "./Template_menu";
-import AtsSection from "./Atsfeatures";
-import GrammarCheckSection from "./Grammerchecksection";
-import ResumeTailoringSection from "./Resumetailorialsection";
+import FAQSection from "../Home Subcomponent/FAQ";
+import FeaturesSection from "../Home Subcomponent/Featuressections";
+import ResumeCarousel from "../Home Subcomponent/Template_menu";
+import AtsSection from "../Home Subcomponent/Atsfeatures";
+import GrammarCheckSection from "../Home Subcomponent/Grammerchecksection";
+import ResumeTailoringSection from "../Home Subcomponent/Resumetailorialsection";
 function Home_content(){
     return(
 <>

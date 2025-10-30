@@ -1,5 +1,3 @@
-import React from "react";
-
 const AtsInfoSection = () => {
   return (
     <div className="bg-[#e4e6eb] py-24 px-6 flex flex-col items-center"> 

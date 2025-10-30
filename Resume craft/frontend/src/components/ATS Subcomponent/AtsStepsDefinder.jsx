@@ -25,7 +25,7 @@ const steps = [
   },
 ];
 
- function HowFlowCVWorks() {
+ function HowAtsWork() {
   return (
     <section className="bg-[#f5f2f0] py-20">
       <h2 className="text-center text-4xl font-extrabold text-[#1b103b] mb-16">
@@ -71,4 +71,4 @@ const steps = [
   );
 }
 
-export default HowFlowCVWorks;
+export default HowAtsWork;

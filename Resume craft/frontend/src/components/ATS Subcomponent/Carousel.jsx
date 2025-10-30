@@ -22,7 +22,7 @@ const slides = [
   },
 ];
 
-function CanvaCarousel() {
+function Carousel() {
   const [current, setCurrent] = useState(0);
 
   const nextSlide = () => setCurrent((current + 1) % slides.length);
@@ -121,4 +121,4 @@ function CanvaCarousel() {
   );
 }
 
-export default CanvaCarousel;
+export default Carousel;

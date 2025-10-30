@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // NOTE: This component requires a Tailwind CSS setup in your project to display styles correctly.
 
-const DarkInputBar = () => {
+const SearchBar = () => {
   const [inputText, setInputText] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [resultText, setResultText] = useState('');
@@ -118,4 +118,4 @@ const DarkInputBar = () => {
   );
 };
 
-export default DarkInputBar;
+export default SearchBar;

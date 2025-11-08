@@ -1,82 +1,132 @@
 import { motion } from "framer-motion";
+import Footer from "../Home Subcomponent/Footer";
 
-function Resume_example(){
-    const templates = [
-    { id: 1, image: "/images/resume-preview.png", name: "Modern Template" },
-    { id: 2, image: "/images/resume-preview.png", name: "Professional Template" },
-    { id: 3, image: "/images/resume-preview.png", name: "Creative Template" },
-    { id: 4, image: "/images/resume-preview.png", name: "Minimal Template" },
-  ];
-    return(
+const resumeExamples = [
+  {
+    id: 1,
+    title: "Software Engineer Resume",
+    desc: "A clean, ATS-optimized layout for developers and tech professionals, highlighting skills, projects, and achievements.",
+    img: "/public/images/resume1.jpg",
+  },
+  {
+    id: 2,
+    title: "Graphic Designer Resume",
+    desc: "A creative layout with a modern touch, ideal for showcasing visual skills and artistic achievements.",
+    img: "/images/resume2.jpg",
+  },
+  {
+    id: 3,
+    title: "Marketing Manager Resume",
+    desc: "Professional and persuasive, perfect for marketing professionals aiming to stand out with data-backed results.",
+    img: "/images/resume3.jpg",
+  },
+  {
+    id: 4,
+    title: "Data Analyst Resume",
+    desc: "Minimal and organized, focusing on analytics tools, insights, and measurable impact.",
+    img: "/images/resume4.jpg",
+  },
+  {
+    id: 5,
+    title: "Teacher Resume",
+    desc: "Warm and approachable design highlighting communication, teaching experience, and educational background.",
+    img: "/images/resume5.jpg",
+  },
+  {
+    id: 6,
+    title: "Finance Executive Resume",
+    desc: "Elegant and professional layout optimized for corporate professionals and analysts.",
+    img: "/images/resume6.jpg",
+  },
+  {
+    id: 7,
+    title: "Content Writer Resume",
+    desc: "Creative yet structured design for copywriters and journalists, emphasizing tone and writing samples.",
+    img: "/images/resume7.jpg",
+  },
+  {
+    id: 8,
+    title: "Human Resource Resume",
+    desc: "A people-focused design highlighting communication, team management, and leadership strengths.",
+    img: "/images/resume8.jpg",
+  },
+  {
+    id: 9,
+    title: "Civil Engineer Resume",
+    desc: "Technical layout suitable for engineering and construction roles, focusing on projects and site experience.",
+    img: "/images/resume9.jpg",
+  },
+  {
+    id: 10,
+    title: "UI/UX Designer Resume",
+    desc: "Modern gradient style highlighting user-centered design principles and portfolio links.",
+    img: "/images/resume10.jpg",
+  },
+];
 
-<div className="bg-gray-50 min-h-screen text-gray-800">
-      {/* Header */}
-      <section className="text-center py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-        <motion.h1
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-5xl font-extrabold mb-4"
-        >
-          Resume Examples
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="text-lg"
-        >
-          Browse our collection of professional resume templates and choose the best fit for you.
-        </motion.p>
-      </section>
+const ResumeExamples = () => {
+  return (
+    <>
+    <section className="bg-gradient-to-b from-white via-pink-50 to-indigo-50 py-20 px-6 md:px-16">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl md:text-5xl font-bold text-center text-[rgb(217,26,118)] mb-16"
+      >
+        Explore 10 Professionally Designed Resume Templates
+      </motion.h1>
 
-      {/* Resume Templates */}
-      <section className="py-16 px-6 md:px-16 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
-        >
-          {templates.map((template) => (
+      <div className="flex flex-col gap-24">
+        {resumeExamples.map((item, index) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className={`flex flex-col md:flex-row items-center justify-between gap-10 ${
+              index % 2 === 1 ? "md:flex-row-reverse" : ""
+            }`}
+          >
+            {/* Image Section */}
             <motion.div
-              key={template.id}
               whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden border hover:shadow-2xl transition"
+              transition={{ type: "spring", stiffness: 200 }}
+              className="w-full md:w-1/2 relative"
             >
               <img
-                src={template.image}
-                alt={template.name}
-                className="w-full"
+                src={item.img}
+                alt={item.title}
+                className="rounded-2xl shadow-2xl w-full object-cover"
               />
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">{template.name}</h3>
-                <button className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                  Use This Template
-                </button>
-              </div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-pink-600/10 to-transparent" />
             </motion.div>
-          ))}
-        </motion.div>
-      </section>
 
-      {/* Call To Action */}
-      <section className="text-center py-20 bg-gradient-to-r from-indigo-600 to-blue-600 text-white">
-        <motion.h2
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-4xl font-bold mb-6"
-        >
-          Ready to Build Your Resume?
-        </motion.h2>
-        <p className="mb-6 text-lg">Choose a template and start editing right away.</p>
-        <button className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:bg-gray-200 transition">
-          Get Started →
-        </button>
-      </section>
-    </div>
+            {/* Text Section */}
+            <div className="w-full md:w-1/2 text-center md:text-left space-y-4 md:space-y-6">
+              <h2 className="text-3xl font-semibold text-gray-800 tracking-tight">
+                {item.title}
+              </h2>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                {item.desc}
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+                className="bg-[rgb(217,26,118)] text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-pink-700 transition-all duration-300"
+              >
+                View Template
+              </motion.button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+    </section>
+    <Footer></Footer>
+    </>
+  );
+};
 
-    );
-}
-export default Resume_example;
+export default ResumeExamples;

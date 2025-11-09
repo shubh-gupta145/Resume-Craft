@@ -72,24 +72,41 @@ function ResumeBuilderPro() {
   const removeCert = (i) => setFormData((s) => ({ ...s, certifications: s.certifications.filter((_, idx) => idx !== i) }));
 
   const downloadPDF = async () => {
-    const el = document.getElementById("resume-preview");
-    if (!el) return;
-    const prev = el.style.boxShadow;
-    try {
-      const canvas = await html2canvas(el, { scale: 2, useCORS: true });
-      const img = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`${formData.name.replace(/\s+/g, "_") || "resume"}.pdf`);
-    } catch (e) {
-      console.error(e);
-      alert("Failed to generate PDF. Try again.");
-    } finally {
-      el.style.boxShadow = prev;
-    }
-  };  
+  const el = document.getElementById("resume-preview");
+  if (!el) return;
+
+  try {
+    const canvas = await html2canvas(el, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      onclone: (doc) => {
+        const style = doc.createElement("style");
+        style.innerHTML = `
+          * {
+            color: black !important;
+            background-color: white !important;
+          }
+        `;
+        doc.head.appendChild(style);
+      },
+    });
+
+
+    const img = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`${formData.name.replace(/\s+/g, "_") || "resume"}.pdf`);
+  } catch (e) {
+    console.error("PDF generation error:", e);
+    alert("Failed to generate PDF. Check console for details.");
+  }
+};
+
+
+
 
 
   const TemplateCard = ({ children, variant }) => {
@@ -138,7 +155,7 @@ function ResumeBuilderPro() {
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-gray-800 text-white flex items-center justify-center text-lg font-semibold">{initials}</div>
           <div>
-            <div className="text-3xl font-extrabold">{formData.name}</div>
+            <div className="text-2xl font-extrabold">{formData.name}</div>
             <div className="text-sm text-gray-700 mt-1">{formData.title}</div>
           </div>
         </div>
@@ -564,7 +581,7 @@ function ResumeBuilderPro() {
           <div id="resume-preview" style={{
                 backgroundColor: "#16a34a", 
                 color: "#ffffff",           
-                }} className="mx-auto mt-4">{templates[selectedTemplate]}
+                }} className="bg-white text-black shadow-none print:bg-white">{templates[selectedTemplate]}
           </div>
 
           <button onClick={downloadPDF} className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg self-start">Download PDF</button>

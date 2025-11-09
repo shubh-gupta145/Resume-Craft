@@ -6,6 +6,7 @@ import ResumeCarousel from "../Home Subcomponent/Template_menu";
 import AtsSection from "../Home Subcomponent/Atsfeatures";
 import GrammarCheckSection from "../Home Subcomponent/Grammerchecksection";
 import ResumeTailoringSection from "../Home Subcomponent/Resumetailorialsection";
+import Footer from "../Home Subcomponent/Footer";
 function Home_content(){
     return(
 <>
@@ -211,7 +212,9 @@ function Home_content(){
         </button>
       </section>
     </div>
+     <Footer></Footer>
     </div>
+    
 </>
     );
 }

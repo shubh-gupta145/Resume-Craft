@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 function CopyCodeBlock() {
   const [copied, setCopied] = useState(false);
-  const command = " Hey ATS Analyais My Resume";
+  const command = " Hey ATS Analayis My Resume";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command);

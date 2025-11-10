@@ -13,9 +13,9 @@ export default function ResumeTailoringSection() {
       >
         {/* Profile Image */}
         <img
-          src="/images/profile2.png" // replace with your actual image
+          src="\tailor.jpg" // replace with your actual image
           alt="Profile"
-          className="rounded-full w-32 h-32 border-4 border-pink-500 shadow-lg"
+          className="rounded-full w-70 h-70 border-4 border-pink-500 shadow-lg"
         />
 
         {/* Floating Resume Cards */}

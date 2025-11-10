@@ -1,132 +1,102 @@
 import { motion } from "framer-motion";
-import Footer from "../Home Subcomponent/Footer";
 
-const resumeExamples = [
+const resumeData = [
   {
     id: 1,
-    title: "Software Engineer Resume",
-    desc: "A clean, ATS-optimized layout for developers and tech professionals, highlighting skills, projects, and achievements.",
-    img: "/public/images/resume1.jpg",
+    img: "/resumeexampleimages/example1.jpg",
+    title: "Modern Professional Resume",
+    desc: "A clean and ATS-optimized layout for corporate and software roles with elegant typography.",
   },
   {
     id: 2,
-    title: "Graphic Designer Resume",
-    desc: "A creative layout with a modern touch, ideal for showcasing visual skills and artistic achievements.",
-    img: "/images/resume2.jpg",
+    img: "/resumeexampleimages/example2.jpg",
+    title: "Creative Designer Resume",
+    desc: "Stylish and colorful design ideal for graphic designers and creative professionals.",
   },
   {
     id: 3,
-    title: "Marketing Manager Resume",
-    desc: "Professional and persuasive, perfect for marketing professionals aiming to stand out with data-backed results.",
-    img: "/images/resume3.jpg",
+    img: "/resumeexampleimages/example3.jpg",
+    title: "Minimal Elegant Resume",
+    desc: "Soft color tones and simple structure that highlight your experience beautifully.",
   },
   {
     id: 4,
-    title: "Data Analyst Resume",
-    desc: "Minimal and organized, focusing on analytics tools, insights, and measurable impact.",
-    img: "/images/resume4.jpg",
+    img: "/resumeexampleimages/example4.jpg",
+    title: "Bold and Impactful Resume",
+    desc: "Eye-catching layout with bold headers and sharp contrast — perfect for leadership roles.",
   },
   {
     id: 5,
-    title: "Teacher Resume",
-    desc: "Warm and approachable design highlighting communication, teaching experience, and educational background.",
-    img: "/images/resume5.jpg",
-  },
-  {
-    id: 6,
-    title: "Finance Executive Resume",
-    desc: "Elegant and professional layout optimized for corporate professionals and analysts.",
-    img: "/images/resume6.jpg",
-  },
-  {
-    id: 7,
-    title: "Content Writer Resume",
-    desc: "Creative yet structured design for copywriters and journalists, emphasizing tone and writing samples.",
-    img: "/images/resume7.jpg",
-  },
-  {
-    id: 8,
-    title: "Human Resource Resume",
-    desc: "A people-focused design highlighting communication, team management, and leadership strengths.",
-    img: "/images/resume8.jpg",
-  },
-  {
-    id: 9,
-    title: "Civil Engineer Resume",
-    desc: "Technical layout suitable for engineering and construction roles, focusing on projects and site experience.",
-    img: "/images/resume9.jpg",
-  },
-  {
-    id: 10,
-    title: "UI/UX Designer Resume",
-    desc: "Modern gradient style highlighting user-centered design principles and portfolio links.",
-    img: "/images/resume10.jpg",
+    img: "/resumeexampleimages/example5.jpg",
+    title: "Simple Classic Resume",
+    desc: "Professional and neat resume layout ideal for freshers and formal job applications.",
   },
 ];
 
-const ResumeExamples = () => {
+export default function ResumeExamples() {
   return (
-    <>
-    <section className="bg-gradient-to-b from-white via-pink-50 to-indigo-50 py-20 px-6 md:px-16">
+    <div className="min-h-screen bg-gray-950 text-gray-200 py-16 px-6 md:px-20">
+      {/* Header Title */}
       <motion.h1
-        initial={{ opacity: 0, y: -50 }}
+        initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold text-center text-[rgb(217,26,118)] mb-16"
+        transition={{ duration: 1 }}
+        className="text-4xl md:text-5xl font-extrabold text-center mb-16"
       >
-        Explore 10 Professionally Designed Resume Templates
+        Resume{" "}
+        <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
+          Examples
+        </span>
       </motion.h1>
 
-      <div className="flex flex-col gap-24">
-        {resumeExamples.map((item, index) => (
+      {/* Resume Cards */}
+      <div className="space-y-24">
+        {resumeData.map((item, index) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, y: 80 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className={`flex flex-col md:flex-row items-center justify-between gap-10 ${
+            className={`flex flex-col md:flex-row items-center gap-10 ${
               index % 2 === 1 ? "md:flex-row-reverse" : ""
             }`}
           >
-            {/* Image Section */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="w-full md:w-1/2 relative"
-            >
-              <img
-                src={item.img}
-                alt={item.title}
-                className="rounded-2xl shadow-2xl w-full object-cover"
-              />
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-pink-600/10 to-transparent" />
-            </motion.div>
+            {/* IMAGE */}
+            <motion.img
+              src={item.img}
+              alt={item.title}
+              whileHover={{ scale: 1.05, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 100 }}
+              className="w-full md:w-[420px] h-auto rounded-2xl shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-shadow duration-500"
+            />
 
-            {/* Text Section */}
-            <div className="w-full md:w-1/2 text-center md:text-left space-y-4 md:space-y-6">
-              <h2 className="text-3xl font-semibold text-gray-800 tracking-tight">
+            {/* TEXT */}
+            <motion.div
+              initial={{ x: index % 2 === 0 ? 100 : -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="md:w-1/2 text-center md:text-left space-y-4"
+            >
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all duration-500">
                 {item.title}
               </h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                {item.desc}
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-                className="bg-[rgb(217,26,118)] text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-pink-700 transition-all duration-300"
-              >
-                View Template
-              </motion.button>
-            </div>
+              <p className="text-lg text-gray-300 leading-relaxed">{item.desc}</p>
+            </motion.div>
           </motion.div>
         ))}
       </div>
-      
-    </section>
-    <Footer></Footer>
-    </>
-  );
-};
 
-export default ResumeExamples;
+      {/* Explore Templates Button */}
+      <div className="flex justify-center mt-20">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-8 py-4 bg-white text-gray-900 font-semibold text-lg rounded-xl shadow-lg hover:bg-gradient-to-r hover:from-blue-400 hover:to-pink-400 hover:text-white transition-all duration-500"
+        >
+          Explore Templates →
+        </motion.button>
+      </div>
+    </div>
+  );
+}

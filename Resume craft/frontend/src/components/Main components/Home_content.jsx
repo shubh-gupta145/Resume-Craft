@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+
 import { ArrowRight } from "lucide-react";
 import FAQSection from "../Home Subcomponent/FAQ";
 import FeaturesSection from "../Home Subcomponent/Featuressections";
@@ -7,6 +9,10 @@ import AtsSection from "../Home Subcomponent/Atsfeatures";
 import GrammarCheckSection from "../Home Subcomponent/Grammerchecksection";
 import ResumeTailoringSection from "../Home Subcomponent/Resumetailorialsection";
 import Footer from "../Home Subcomponent/Footer";
+import Profile from "./profile";
+import ProfilePage from "./Mainprofile";
+
+
 function Home_content(){
     return(
 <>
@@ -33,18 +39,57 @@ function Home_content(){
           </button>
         </motion.div>
 
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="md:w-1/2 mt-10 md:mt-0"
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="md:w-1/2 mt-10 md:mt-0 flex justify-center"
+>
+        {(() => {
+          // 🔁 Auto flip logic
+      const [flipped, setFlipped] = useState(false);
+
+        useEffect(() => {
+        const interval = setInterval(() => {
+        setFlipped((prev) => !prev);
+        }, 3000); // auto flip every 3 sec
+      return () => clearInterval(interval);
+    }, []);
+
+    return (
+      // ✅ Flip Card Container
+      <div className="relative group w-[380px] h-[480px] [perspective:1000px] ml-10 transition-transform duration-500 hover:-translate-y-3 hover:scale-[1.05]">
+        {/* ↑ Hover effect */}
+        
+        {/* Inner flip wrapper */}
+        <div
+          className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] 
+            ${flipped ? "[transform:rotateY(180deg)]" : ""}
+            group-hover:[transform:rotateY(180deg)]`}
         >
-          <img
-            src="\templates pictures\ChatGPT Image Sep 28, 2025, 01_45_28 AM.png"
-            alt="Resume Preview"
-            className="rounded-2xl shadow-xl"
-          />
-        </motion.div>
+          {/* FRONT SIDE */}
+          <div className="absolute inset-0 [backface-visibility:hidden]">
+            <img
+              src="/4016575.jpg"  
+              alt="Resume Preview"
+              className="w-full h-full rounded-xl shadow-2xl object-cover"
+            />
+          </div>
+
+          {/* BACK SIDE */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-2xl flex items-center justify-center text-2xl font-semibold [transform:rotateY(180deg)] [backface-visibility:hidden]">
+            <img
+              src="/back.jpg"  
+              alt="Back Resume"
+              className="w-full h-full rounded-xl shadow-2xl object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  })()}
+</motion.div>
+
       </section>
       </div>
 
@@ -213,6 +258,7 @@ function Home_content(){
       </section>
     </div>
      <Footer></Footer>
+     
     </div>
     
 </>

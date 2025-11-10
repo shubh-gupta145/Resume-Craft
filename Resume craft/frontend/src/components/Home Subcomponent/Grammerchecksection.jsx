@@ -41,7 +41,7 @@ export default function GrammarCheckSection() {
       >
         <div className="relative bg-white rounded-2xl shadow-xl p-6 max-w-xs md:max-w-sm">
           <img
-            src="/images/profile-sample.png" // replace with your image
+            src="\grammer.jpg" // replace with your image
             alt="Profile Preview"
             className="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-pink-400"
           />

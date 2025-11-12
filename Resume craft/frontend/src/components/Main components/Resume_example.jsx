@@ -1,35 +1,36 @@
 import { motion } from "framer-motion";
+import Footer from "../Home Subcomponent/Footer";
 
 const resumeData = [
   {
     id: 1,
     img: "/resumeexampleimages/example1.jpg",
     title: "Modern Professional Resume",
-    desc: "A clean and ATS-optimized layout for corporate and software roles with elegant typography.",
+    desc: "This resume example demonstrates a perfect balance between design and professionalism. It includes all essential sections like profile, work experience, education, and skills in a clean, two-column layout with elegant color combinations. The use of icons and progress bars makes it both visually appealing and easy to understand",
   },
   {
     id: 2,
     img: "/resumeexampleimages/example2.jpg",
     title: "Creative Designer Resume",
-    desc: "Stylish and colorful design ideal for graphic designers and creative professionals.",
+    desc: "This resume example showcases a creative and modern design suitable for graphic designers and marketing professionals. It features a clean structure, bold typography, and a professional color scheme that balances creativity and readability. The timeline-style experience, visual skill indicators, and prominent photo section make it stand out as an excellent example of a professional yet artistic resume.",
   },
   {
     id: 3,
     img: "/resumeexampleimages/example3.jpg",
     title: "Minimal Elegant Resume",
-    desc: "Soft color tones and simple structure that highlight your experience beautifully.",
+    desc: "This resume example showcases a minimalist and professional layout ideal for creative professionals. With a clear two-column structure, balanced typography, and blue accents, it effectively presents personal details, experience, education, and skills. The use of visual indicators for skills and languages makes it modern, elegant, and recruiter-friendly.",
   },
   {
     id: 4,
     img: "/resumeexampleimages/example4.jpg",
     title: "Bold and Impactful Resume",
-    desc: "Eye-catching layout with bold headers and sharp contrast — perfect for leadership roles.",
+    desc: "This resume example features a bold and futuristic design ideal for creative professionals. With a large title, striking color palette, and clean typography, it combines modern aesthetics with simplicity. The balanced use of imagery, minimal text, and creative layout makes it stand out as a stylish and professional resume template.",
   },
   {
     id: 5,
     img: "/resumeexampleimages/example5.jpg",
     title: "Simple Classic Resume",
-    desc: "Professional and neat resume layout ideal for freshers and formal job applications.",
+    desc: "This resume example features a clean, elegant layout with a calm color palette and balanced typography. It presents all key sections—profile, education, experience, skills, and hobbies—in a well-structured format. The minimalistic yet classy design makes it ideal for professionals who want a stylish and easy-to-read resume.",
   },
 ];
 
@@ -96,7 +97,9 @@ export default function ResumeExamples() {
         >
           Explore Templates →
         </motion.button>
+        
       </div>
+      <Footer></Footer>
     </div>
   );
 }

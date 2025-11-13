@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const slides = [
   {
     title: "Free Online Resume Builder",
     subtitle: "Build your professional resume in minutes",
     button: "Build my resume",
+    link: "/template", // 👈 when clicked, open template page
     img: "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761_1280.jpg",
   },
   {
-    title: "Modern Templates",
-    subtitle: "Choose from 10+ professional templates",
-    button: "Explore Templates",
-    img: "https://cdn.pixabay.com/photo/2016/11/29/01/21/laptop-1868957_1280.jpg",
+    title: "View The Resume Examples",
+    subtitle: "All The Resume Are ATS Friendly and Support To Make The Good Resume For JOB",
+    button: "Resume Examples",
+    link: "/resume_example",
+    img: "Template 3.jpeg",
   },
   {
-    title: "ATS Checked Resume Building",
-    subtitle: "Generate ATS Score on One Click",
-    button: "Try ATS Resume",
+    title: "View Our Template",
+    subtitle: "CheckOut Our ATS Friendly Template With colorFull Text and Awesome Background",
+    button: "View Our Templates",
+    link: "/", // 👈 if you have ATS page
     img: "https://cdn.pixabay.com/photo/2015/05/31/10/55/man-791049_1280.jpg",
   },
 ];
@@ -29,6 +33,14 @@ function Carousel() {
   const prevSlide = () =>
     setCurrent((current - 1 + slides.length) % slides.length);
 
+  // Optional: Auto slide every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 9000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-300 overflow-hidden">
       <div className="relative w-full max-w-7xl flex items-center justify-center px-10">
@@ -39,7 +51,7 @@ function Carousel() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7"
+            className="h-8 w-9"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -66,12 +78,16 @@ function Carousel() {
               <p className="text-lg text-gray-600 mb-6">
                 {slides[current].subtitle}
               </p>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:from-fuchsia-500 hover:to-purple-600"
-              >
-                {slides[current].button}
-              </motion.button>
+
+              {/* ✅ Routing button */}
+              <Link to={slides[current].link}>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:from-fuchsia-500 hover:to-purple-600"
+                >
+                  {slides[current].button}
+                </motion.button>
+              </Link>
             </div>
 
             <motion.div
@@ -81,7 +97,7 @@ function Carousel() {
               <img
                 src={slides[current].img}
                 alt="Resume Preview"
-                className="rounded-2xl shadow-lg w-[500px] h-auto"
+                className="rounded-2xl shadow-lg w-[500px] h-[400px]"
               />
             </motion.div>
           </motion.div>

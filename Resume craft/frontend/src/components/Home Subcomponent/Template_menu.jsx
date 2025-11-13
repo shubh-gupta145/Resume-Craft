@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
-  "/images/resume1.png",
-  "/images/resume2.png",
-  "/images/resume3.png",
-  "/images/resume4.png",
-  "/images/resume5.png",
-  "/images/resume6.png",
-  "/images/resume7.png",
-  "/images/resume8.png",
-  "/images/resume9.png",
-  "/images/resume10.png",
+ "/Template image/Template 1.avif",
+  "/Template image/Template 2.webp",
+  "/Template image/Template 3.avif",
+  "/Template image/Template 4.jpg",
+  "/Template image/Template 5.jpeg",
+  "/Template image/Template 6.png",
+  "/Template image/Template 7.avif",
+  "/Template image/Template 8.jpeg",
+  "/Template image/Template 9.jpg",
+  "/Template image/Template 10.avif",
 ];
 
 function ResumeCarousel() {

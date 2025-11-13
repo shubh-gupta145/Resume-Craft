@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function ResumeBuilderPro() {
   const [selectedTemplate, setSelectedTemplate] = useState("A");
@@ -70,44 +70,79 @@ function ResumeBuilderPro() {
     setNewCert({ name: "", issuer: "" });
   };
   const removeCert = (i) => setFormData((s) => ({ ...s, certifications: s.certifications.filter((_, idx) => idx !== i) }));
-
   const downloadPDF = async () => {
   const el = document.getElementById("resume-preview");
   if (!el) return;
 
+  // 🧩 Step 1: Sanitize all elements for unsupported color functions
+  const elements = el.querySelectorAll("*");
+  elements.forEach((elem) => {
+    const style = getComputedStyle(elem);
+    const bg = style.backgroundColor;
+    const color = style.color;
+    const borderColor = style.borderColor;
+
+    // Replace oklch() or oklab() color values with safe fallbacks
+    const hasBadColor = (v) => /oklch|oklab/i.test(v);
+    if (hasBadColor(bg)) elem.style.backgroundColor = "#ffffff";
+    if (hasBadColor(color)) elem.style.color = "#000000";
+    if (hasBadColor(borderColor)) elem.style.borderColor = "#000000";
+  });
+
+  // 🧩 Step 2: Temporarily set PDF-friendly styles
+  const prevBackground = el.style.background;
+  const prevColor = el.style.color;
+  el.className = "";
+  el.setAttribute(
+    "style",
+    "background:#ffffff; color:#000000; width:794px; min-height:1123px; padding:2rem;"
+  );
+
   try {
+    // 🖼 Step 3: Generate high-res canvas
     const canvas = await html2canvas(el, {
-      scale: 2,
+      scale: 3,
       useCORS: true,
       backgroundColor: "#ffffff",
-      onclone: (doc) => {
-        const style = doc.createElement("style");
-        style.innerHTML = `
-          * {
-            color: black !important;
-            background-color: white !important;
-          }
-        `;
-        doc.head.appendChild(style);
-      },
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: el.scrollWidth,
+      windowHeight: el.scrollHeight,
     });
 
-
-    const img = canvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const pxToMm = 0.264583;
+    const imgWidthMm = canvas.width * pxToMm;
+    const imgHeightMm = canvas.height * pxToMm;
+
+    let renderWidth = pageWidth;
+    let renderHeight = (imgHeightMm * pageWidth) / imgWidthMm;
+    let position = 0;
+
+    if (renderHeight > pageHeight) {
+    const scale = pageHeight / renderHeight;
+    const newWidth = renderWidth * scale;
+    const newHeight = renderHeight * scale;
+    const x = (pageWidth - newWidth) / 2;
+    pdf.addImage(imgData, "PNG", x, 0, newWidth, newHeight);
+    } else {
+    pdf.addImage(imgData, "PNG", 0, 0, renderWidth, renderHeight);
+    }
+
     pdf.save(`${formData.name.replace(/\s+/g, "_") || "resume"}.pdf`);
   } catch (e) {
     console.error("PDF generation error:", e);
     alert("Failed to generate PDF. Check console for details.");
+  } finally {
+    // ♻️ Step 4: Restore styles
+    el.style.background = prevBackground;
+    el.style.color = prevColor;
   }
 };
-
-
-
-
 
   const TemplateCard = ({ children, variant }) => {
     const base = "w-[794px] min-h-[1123px] p-8 rounded shadow-inner overflow-hidden";
@@ -1447,11 +1482,19 @@ D: (
             ))}
           </div>
 
-          <div id="resume-preview" style={{
-                backgroundColor: "#16a34a", 
-                color: "#ffffff",           
-                }} className="mx-auto mt-4">{templates[selectedTemplate]}
-          </div>
+          
+           <div id="resume-preview"
+                className="mx-auto mt-4 shadow-lg"
+                style={{
+                    width: "794px",
+                    minHeight: "1123px",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    padding: "2rem",
+                }}
+                >
+                {templates[selectedTemplate]}
+            </div>
           <button onClick={downloadPDF} className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg self-start">Download PDF</button>
         </div>
       </div>

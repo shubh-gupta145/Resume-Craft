@@ -47,32 +47,31 @@ const Result = () => {
       setIsLoading(true);
       setResultText('⏳ Analyzing your resume...');
       setShowResult(true);
-
-      const res = await axios.post('http://localhost:3000/api/v1/atsscore', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const token = localStorage.getItem("token");
+      const res = await axios.post('http://localhost:3000/api/v1/atsScore', formData, {
+        headers: { 'Content-Type': 'multipart/form-data',"Authorization": `Bearer ${token}`},
       });
 
       setResultText(`
-✅ Analysis Complete for Job Profile: ${jobProfile}
-Name: ${res.data.name}
-Email: ${res.data.email}
-Phone: ${res.data.phone}
+      ✅ Analysis Complete for Job Profile: ${jobProfile}
+      Name: ${res.data.name}
+      Email: ${res.data.email}
+      Phone: ${res.data.phone}
 
-Summary:
-${res.data.summary || 'No summary detected.'}
 
-Skills:
-${res.data.skills?.join(', ') || 'Not found'}
-
-ATS Score: ${res.data.atsScore || 'N/A'}
+      ATS Score: ${res.data.atsScore || 'N/A'}
       `);
 
       setStep(2);
     } catch (err) {
       console.error(err);
-      setResultText('❌ Error analyzing the resume. Please try again.');
+      const backendMessage = err.response?.data?.message || "Unknown error occurred";
+      setResultText(`❌ Error analyzing the resume. Please try again.\nReason: ${backendMessage}`);
     } finally {
       setIsLoading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 

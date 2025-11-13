@@ -2,6 +2,7 @@ import Carousel from "../ATS Subcomponent/Carousel";
 import AtsInfoSection from "../ATS Subcomponent/AtsInfoSection";
 import HowAtsWork from "../ATS Subcomponent/AtsStepsDefinder";
 import Result from "../ATS Subcomponent/result";
+import Disclamer from "../ATS Subcomponent/Disclamer";
 
 function ATS(){
   return (
@@ -9,7 +10,8 @@ function ATS(){
     <Carousel></Carousel>
     <AtsInfoSection></AtsInfoSection>
     <HowAtsWork></HowAtsWork>
-<Result></Result>
+    <Disclamer></Disclamer>
+    <Result></Result>
     </>
   )
 }

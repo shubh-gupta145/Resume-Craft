@@ -1,20 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
-  const user = {
-    name: "Rohit Baghel",
-    email: "rohitbaghel@example.com",
-    education: [
-      { degree: "Bachelor of Computer Applications (BCA)", year: "2023", college: "Delhi University" },
-      { degree: "12th Grade", year: "2020", college: "CBSE Board" },
-      { degree: "10th Grade", year: "2018", college: "CBSE Board" },
-    ],
+  const navigate = useNavigate();
+
+  // ✅ Read user details from localStorage
+  const user = JSON.parse(localStorage.getItem("user")) || {
+    name: "Guest User",
+    email: "guest@example.com",
+    education: [],
   };
 
+  // ✅ Logout (remove token + user + redirect to login page)
   const handleLogout = () => {
-    alert("You have been logged out!");
+    localStorage.removeItem("token");
+
+    navigate("/"); // redirect to home page
   };
 
   return (
@@ -66,8 +69,9 @@ const ProfilePage = () => {
           <h3 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-400">
             Education Details
           </h3>
+
           <div className="space-y-4">
-            {user.education.map((edu, index) => (
+            {(user.education || []).map((edu, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}

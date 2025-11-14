@@ -47,7 +47,7 @@ function Navbar() {
             <Link to="/template" className={linkClasses("/template")}>
               Templates
             </Link>
-            <Link to="/profile" className={linkClasses("/profile")}>
+            <Link to="/login" className={linkClasses("/login")}>
               Profile
             </Link>
           </div>

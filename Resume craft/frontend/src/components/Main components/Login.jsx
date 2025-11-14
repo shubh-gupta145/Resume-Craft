@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";   // ✅ required
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import axios from "axios"; 
+import axios from "axios";
 
 function Profile() {
+  const navigate = useNavigate();       // ✅ initialize navigate
   const [isLogin, setIsLogin] = useState(true);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,7 +16,6 @@ function Profile() {
     confirmPassword: ""
   });
 
-  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,9 +32,12 @@ function Profile() {
         : formData;
 
       const res = await axios.post(url, bodyData);
+
       if (res.data.success) {
-        localStorage.setItem("token", res.data.token); 
-        alert(res.data.message || "Success!");
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+
+        navigate("/profile");  // ✅ correct route path
       }
     } catch (error) {
       console.error(error);

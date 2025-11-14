@@ -8,6 +8,8 @@ const Result = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [jobProfile, setJobProfile] = useState('');
+  const [resData, setResData] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleChange = (event) => setInputText(event.target.value);
@@ -34,6 +36,13 @@ const Result = () => {
       return;
     }
   };
+  const cleanField = (value) => {
+    if (!value) return "Not found";
+
+    return value
+      .replace(/^(name|email|phone|contact|mobile|number|tel|ph)\s*[:\-]?\s*/i, "")
+      .trim();
+  };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -51,16 +60,21 @@ const Result = () => {
       const res = await axios.post('http://localhost:3000/api/v1/atsScore', formData, {
         headers: { 'Content-Type': 'multipart/form-data',"Authorization": `Bearer ${token}`},
       });
+      const data = res.data;
+
+      setResData(data);
 
       setResultText(`
       ✅ Analysis Complete for Job Profile: ${jobProfile}
-      Name: ${res.data.name}
-      Email: ${res.data.email}
-      Phone: ${res.data.phone}
+      Name: ${cleanField(res.data.name)}
+      Email: ${cleanField(res.data.email)}
+      Phone: ${cleanField(res.data.phone)}
+
 
 
       ATS Score: ${res.data.atsScore || 'N/A'}
-      `);
+      ` );
+      generateSuggestions(data);
 
       setStep(2);
     } catch (err) {
@@ -84,6 +98,40 @@ const Result = () => {
     if (step === 2) return 'Please Submit Your Resume';
     return 'Type something...';
   };
+    const generateSuggestions = (data) => {
+      let s = [];
+
+      // Skills
+      if (data.breakdown.skillScore < 30) {
+        s.push("Add more job-relevant technical skills to your resume.");
+      }
+
+      // Projects
+      if (data.breakdown.projectScore < 20) {
+        s.push("Include at least 2–3 detailed projects with tech stack and responsibilities.");
+      }
+
+      // Certifications
+      if (data.breakdown.certificateScore < 10) {
+        s.push("Add relevant certifications (Google, Meta, Udemy, Coursera).");
+      }
+
+      // Experience
+      if (data.breakdown.experienceScore < 15) {
+        s.push("Mention internships or freelance experience to strengthen your profile.");
+      }
+
+      // Education
+      if (data.breakdown.educationScore < 10) {
+        s.push("Highlight your degree, university and graduation year clearly.");
+      }
+
+      // If none missing
+      if (s.length === 0) s.push("Your resume looks strong! Great job 🎉");
+
+      setSuggestions(s);
+};
+
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -166,9 +214,38 @@ const Result = () => {
               ATS Analysis Result
             </h2>
 
-            <pre className="text-gray-200 text-lg whitespace-pre-wrap max-h-[70vh] overflow-y-auto">
-              {resultText}
-            </pre>
+            <div className="text-gray-200 text-lg space-y-4 max-h-[70vh] overflow-y-auto">
+
+              {/* Main Text */}
+              <pre className="whitespace-pre-wrap">{resultText}</pre>
+
+              {/* Breakdown Box */}
+              {resData && resData.breakdown && (
+                <div className="p-4 bg-gray-800 rounded-xl border border-gray-700">
+                  <h3 className="text-xl font-semibold text-blue-400 mb-3">Score Breakdown</h3>
+                  <ul className="space-y-2">
+                    <li>🧩 Skill Match: <b>{resData.breakdown.skillScore}/40</b></li>
+                    <li>📂 Projects: <b>{resData.breakdown.projectScore}/20</b></li>
+                    <li>🎓 Certifications: <b>{resData.breakdown.certificateScore}/15</b></li>
+                    <li>💼 Experience: <b>{resData.breakdown.experienceScore}/15</b></li>
+                    <li>🏫 Education: <b>{resData.breakdown.educationScore}/10</b></li>
+                  </ul>
+                </div>
+              )}
+
+              {/* Suggestions */}
+              {resData && (
+                <div className="p-4 bg-gray-800 rounded-xl border border-yellow-600">
+                  <h3 className="text-xl font-semibold text-yellow-400 mb-3">Suggestions to Improve Your Score</h3>
+                  <ul className="space-y-2 list-disc pl-5">
+                    {suggestions.map((s, index) => (
+                      <li key={index}>{s}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
           </div>
         </div>
       )}

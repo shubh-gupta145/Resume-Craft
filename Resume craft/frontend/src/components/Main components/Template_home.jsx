@@ -144,6 +144,59 @@ function ResumeBuilderPro() {
   }
 };
 
+    const downloadATSPDF = () => {
+    const pdf = new jsPDF("p", "mm", "a4");
+    const lineGap = 7;
+    let y = 10;
+
+    const addLine = (text) => {
+        pdf.text(text, 10, y);
+        y += lineGap;
+    };
+
+    addLine(`Name: ${formData.name}`);
+    addLine(`Title: ${formData.title}`);
+    addLine(`Contact: ${formData.contact}`);
+    addLine("");
+    addLine("About:");
+    addLine(formData.about);
+    addLine("");
+
+    addLine("Skills:");
+    formData.skills.forEach((s) => addLine("- " + s));
+    addLine("");
+
+    addLine("Experience:");
+    formData.experience.forEach((e) =>
+        addLine(`- ${e.role} at ${e.company} (${e.year})`)
+    );
+    addLine("");
+
+    addLine("Education:");
+    formData.education.forEach((ed) =>
+        addLine(`- ${ed.degree} at ${ed.school} (${ed.year})`)
+    );
+    addLine("");
+
+    if (formData.projects.length > 0) {
+        addLine("Projects:");
+        formData.projects.forEach((p) =>
+        addLine(`- ${p.title}: ${p.description}`)
+        );
+        addLine("");
+    }
+
+    if (formData.certifications.length > 0) {
+        addLine("Certifications:");
+        formData.certifications.forEach((c) =>
+        addLine(`- ${c.name} (${c.issuer})`)
+        );
+    }
+
+    pdf.save(`${formData.name.replace(/\s+/g, "_")}_ATS.pdf`);
+    };
+
+
   const TemplateCard = ({ children, variant }) => {
     const base = "w-[794px] min-h-[1123px] p-8 rounded shadow-inner overflow-hidden";
     if (variant === "blue") return <div className={`${base} bg-gradient-to-br from-blue-700 to-blue-900 text-white`}>{children}</div>;
@@ -1496,6 +1549,13 @@ D: (
                 {templates[selectedTemplate]}
             </div>
           <button onClick={downloadPDF} className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg self-start">Download PDF</button>
+            <button
+                onClick={downloadATSPDF}
+                className="mt-2 px-4 py-2 bg-purple-600 text-white rounded-lg self-start"
+                >
+                Download ATS-Friendly PDF
+            </button>
+
         </div>
       </div>
     </div>

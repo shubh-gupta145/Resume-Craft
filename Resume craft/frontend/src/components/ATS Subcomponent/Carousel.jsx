@@ -15,7 +15,7 @@ const slides = [
     subtitle: "All The Resume Are ATS Friendly and Support To Make The Good Resume For JOB",
     button: "Resume Examples",
     link: "/resume_example",
-    img: "Template 3.jpeg",
+    img: "/Template image/Template 3.avif",
   },
   {
     title: "View Our Template",

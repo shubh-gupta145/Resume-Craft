@@ -83,31 +83,35 @@ In the context of a resume, ATS stands for Applicant Tracking System, which is s
     </ul>
 </div>
         </div>
-
-        {/* Section 2 (Text + Image Side by Side) */}
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-5">
-              How our ATS work
-            </h2>
-            <p className="text-gray-700 text-lg leading-relaxed mb-4">
-Our ATS first asks for your job title or profession. Then, it takes your resume and checks whether the given ATS keywords are present. Based on the keywords found in your resume, it assigns you an ATS score. The score depends on the relevance and weight of the keywords — some keywords give you a higher score, while others contribute less.
-            </p>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              For each candidate, you’ll receive a detailed ranking and keyword
-              match score, making it easy to shortlist the best-fit profiles for
-              your organization.
-            </p>
-          </div>
-
-          <div className="flex-1 flex justify-center">
-            <img
-              src="/images/First_image.jpg"
-              alt="ATS Illustration"
-              className="rounded-2xl shadow-lg w-[80%] md:w-[85%] hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+<div className="flex flex-col md:flex-row items-center gap-10">
+    <div className="flex-1">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-5 text-center">
+            How our ATS work
+        </h2>
+        <div className="space-y-4"> 
+            <div className="flex items-start">
+                <span className="text-blue-500 mr-3 mt-1 text-lg flex-shrink-0">◆</span>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                    Our **ATS first asks for your job title or profession.** Then, it takes your resume and checks whether the given **ATS keywords are present.**
+                </p>
+            </div>
+            <div className="flex items-start">
+                <span className="text-blue-500 mr-3 mt-1 text-lg flex-shrink-0">◆</span>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                    Based on the keywords found in your resume, it **assigns you an ATS score.** The score depends on the relevance and weight of the keywords — some keywords give you a higher score, while others contribute less.
+                </p>
+            </div>
+            <div className="flex items-start">
+                <span className="text-blue-500 mr-3 mt-1 text-lg flex-shrink-0">◆</span>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                    For each candidate, you’ll receive a **detailed ranking and keyword match score**, making it easy to shortlist the best-fit profiles for your organization.
+                </p>
+            </div>
+            
         </div>
+
+    </div>
+</div>
       </div>
     </div>
   );

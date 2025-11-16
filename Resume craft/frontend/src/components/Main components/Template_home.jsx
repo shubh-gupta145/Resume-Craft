@@ -11,15 +11,27 @@ function ResumeBuilderPro() {
     contact: "youremail@example.com | +91 99999 99999",
     about: "I build delightful interfaces and resume tools.",
     skills: ["JavaScript", "React", "Node.js"],
-    experience: [{ role: "Frontend Developer", company: "ABC Pvt Ltd", year: "2022 - Present" }],
-    education: [{ degree: "B.Tech CSE", school: "XYZ University", year: "2020" }],
+    experience: [
+  { role: "", company: "", year: "", description: "" }],
+    education: [{ degree: "", school: "", year: "",description:"" }],
     projects: [],
     certifications: [],
   });
 
   const [newSkill, setNewSkill] = useState("");
-  const [newExp, setNewExp] = useState({ role: "", company: "", year: "" });
-  const [newEdu, setNewEdu] = useState({ degree: "", school: "", year: "" });
+  const [newExp, setNewExp] = useState({
+  role: "",
+  company: "",
+  year: "",
+  description: ""
+});
+const [newEdu, setNewEdu] = useState({
+  degree: "",
+  school: "",
+  year: "",
+  description: ""
+});
+
   const [newProject, setNewProject] = useState({ title: "", description: "" });
   const [newCert, setNewCert] = useState({ name: "", issuer: "" });
 
@@ -238,54 +250,124 @@ function ResumeBuilderPro() {
     );
      const templates = {
     A: (
-      <TemplateCard variant="light">
-        {/* Existing template A content */}
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-gray-800 text-white flex items-center justify-center text-lg font-semibold">{initials}</div>
-          <div>
-            <div className="text-3xl font-extrabold">{formData.name}</div>
-            <div className="text-sm text-gray-700 mt-1">{formData.title}</div>
-          </div>
-        </div>
-        <div className="mt-6">
-          <h3 className="font-bold text-lg border-b pb-1">About Me</h3>
-          <p className="mt-2 text-sm">{formData.about}</p>
-        </div>
-        <div className="mt-6 grid grid-cols-3 gap-4">
-          <div className="col-span-2">
-            <h3 className="font-bold border-b pb-1">Experience</h3>
-            <div className="mt-2 text-sm space-y-2">
-              {formData.experience.map((ex, i) => (
-                <div key={i}>
-                  <div className="font-semibold">{ex.role}</div>
-                  <div className="text-xs text-gray-600">{ex.company} • {ex.year}</div>
-                </div>
-              ))}
+<TemplateCard variant="light">
+  {/* Header */}
+  <div className="flex items-center gap-4">
+    <div className="w-14 h-14 rounded-full bg-gray-800 text-white flex items-center justify-center text-lg font-semibold">
+      {initials}
+    </div>
+    <div>
+      <div className="text-3xl font-extrabold">
+        {formData.name || "Your Name Here"}
+      </div>
+      <div className="text-sm text-gray-700 mt-1">
+        {formData.title || "Your Job Title"}
+      </div>
+    </div>
+  </div>
+
+  {/* About */}
+  <div className="mt-6">
+    <h3 className="font-bold text-lg border-b pb-1">About Me</h3>
+    <p className="mt-2 text-sm">
+      {formData.about || "Write a short introduction about yourself..."}
+    </p>
+  </div>
+
+  <div className="mt-6 grid grid-cols-3 gap-4">
+
+    {/* LEFT SECTION */}
+    <div className="col-span-2">
+
+      {/* Experience */}
+      <h3 className="font-bold border-b pb-1">Experience</h3>
+      <div className="mt-2 text-sm space-y-2">
+        {formData.experience.length > 0 ? (
+          formData.experience.map((ex, i) => (
+            <div key={i}>
+              <div className="font-semibold">{ex.role}</div>
+              <div className="text-xs text-gray-600">{ex.company} • {ex.year}</div>
+              <p className="text-xs text-gray-700">{ex.description || ""}</p>
             </div>
-            <div className="mt-6">
-              <h3 className="font-bold border-b pb-1">Education</h3>
-              <div className="mt-2 text-sm">
-                {formData.education.map((ed, i) => (
-                  <div key={i} className="mb-2">
-                    <div className="font-semibold">{ed.degree}</div>
-                    <div className="text-xs text-gray-600">{ed.school} • {ed.year}</div>
-                  </div>
-                ))}
+          ))
+        ) : (
+          <p className="text-xs text-gray-500">Add your work experience here...</p>
+        )}
+      </div>
+
+      {/* Education */}
+      <div className="mt-6">
+        <h3 className="font-bold border-b pb-1">Education</h3>
+        <div className="mt-2 text-sm">
+          {formData.education.length > 0 ? (
+            formData.education.map((ed, i) => (
+              <div key={i} className="mb-2">
+                <div className="font-semibold">{ed.degree}</div>
+                <div className="text-xs text-gray-600">{ed.school} • {ed.year}</div>
               </div>
-            </div>
-            {renderProjects()}
-            {renderCertifications()}
-          </div>
-          <aside className="col-span-1 bg-white/60 p-3 rounded">
-            <h4 className="font-bold">Contact</h4>
-            <div className="text-xs mt-1 text-gray-700">{formData.contact}</div>
-            <h4 className="font-bold mt-4">Skills</h4>
-            <ul className="mt-2 list-disc ml-4 text-sm space-y-1">
-              {formData.skills.map((s, i) => <li key={i}>{s}</li>)}
-            </ul>
-          </aside>
+            ))
+          ) : (
+            <p className="text-xs text-gray-500">Add your educational details...</p>
+          )}
         </div>
-      </TemplateCard>
+      </div>
+
+      {/* Projects */}
+      <div className="mt-6">
+        <h3 className="font-bold border-b pb-1">Projects</h3>
+        <div className="mt-2 text-sm">
+          {formData.projects?.length > 0 ? (
+            formData.projects.map((pr, i) => (
+              <div key={i} className="mb-2">
+                <div className="font-semibold">{pr.title}</div>
+                <p className="text-xs text-gray-700">{pr.description}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-xs text-gray-500">List your projects here...</p>
+          )}
+        </div>
+      </div>
+
+      {/* Certifications */}
+      <div className="mt-6">
+        <h3 className="font-bold border-b pb-1">Certifications</h3>
+        <div className="mt-2 text-sm">
+          {formData.certifications?.length > 0 ? (
+            formData.certifications.map((ce, i) => (
+              <div key={i} className="mb-2">
+                <div className="font-semibold">{ce.name}</div>
+                <div className="text-xs text-gray-600">Issued by {ce.issuedBy}</div>
+              </div>
+            ))
+          ) : (
+            <p className="text-xs text-gray-500">Add your certifications...</p>
+          )}
+        </div>
+      </div>
+
+    </div>
+
+    {/* RIGHT SIDEBAR */}
+    <aside className="col-span-1 bg-white/60 p-3 rounded">
+      <h4 className="font-bold">Contact</h4>
+      <div className="text-xs mt-1 text-gray-700">
+        {formData.contact || "Your email | Phone number"}
+      </div>
+
+      <h4 className="font-bold mt-4">Skills</h4>
+      <ul className="mt-2 list-disc ml-4 text-sm space-y-1">
+        {formData.skills.length > 0 ? (
+          formData.skills.map((s, i) => <li key={i}>{s}</li>)
+        ) : (
+          <p className="text-xs text-gray-500">Add your top skills...</p>
+        )}
+      </ul>
+    </aside>
+
+  </div>
+</TemplateCard>
+
     ),
     B: (
 // **********************************************
@@ -1285,19 +1367,43 @@ D: (
                 </div>
 
                 {/* --- Education --- */}
-                <div>
-                    <h3 className="text-xl font-bold uppercase mb-2">Education</h3>
-                    <div className="space-y-3">
-                        {formData.education.map((ed, i) => (
-                            <div key={i} className="text-sm">
-                                <div className="font-bold">{ed.degree}</div>
-                                <div className="text-gray-700">{ed.school}</div>
-                                <div className="text-xs text-gray-600">Graduated: {ed.year}</div>
-                                <div className="text-xs text-gray-600 mt-1">Focus on Artificial Intelligence and Quantum Computing.</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+<label className="text-sm font-medium mt-3">Education</label>
+
+<input 
+  value={newEdu.degree} 
+  onChange={(e) => setNewEdu({ ...newEdu, degree: e.target.value })} 
+  placeholder="Degree/Qualification" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<input 
+  value={newEdu.school} 
+  onChange={(e) => setNewEdu({ ...newEdu, school: e.target.value })} 
+  placeholder="School/University" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<input 
+  value={newEdu.year} 
+  onChange={(e) => setNewEdu({ ...newEdu, year: e.target.value })} 
+  placeholder="Year of Completion" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<textarea
+  value={newEdu.description}
+  onChange={(e) => setNewEdu({ ...newEdu, description: e.target.value })}
+  placeholder="Description (Achievements, coursework, grade...)"
+  className="border rounded-lg p-2 w-full mt-1 h-20"
+/>
+
+<button 
+  onClick={addEdu} 
+  className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1"
+>
+  Add Education
+</button>
+
 
                 {/* --- Language --- */}
                 <div>
@@ -1328,24 +1434,42 @@ D: (
                 </div>
 
                 {/* --- Experience --- */}
-                <div className="mb-6">
-                    <h3 className="text-2xl font-normal mb-4">Experience</h3>
-                    <div className="space-y-6">
-                        {formData.experience.map((ex, i) => (
-                            <div key={i}>
-                                <div className="flex justify-between items-start text-sm">
-                                    <div className="font-bold text-gray-800">{ex.role}</div>
-                                    <div className="text-sm font-normal">{ex.year}</div>
-                                </div>
-                                <div className="text-sm text-gray-700 mb-2">{ex.company}</div>
-                                <ul className="list-disc ml-5 text-sm text-gray-700 space-y-1">
-                                    <li>Leading a team of 4 in developing cutting-edge AI algorithms for space navigation.</li>
-                                    <li>Successfully deployed AI systems in three interstellar missions, enhancing data analysis efficiency by 40%.</li>
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <label className="text-sm font-medium mt-3">Experience</label>
+
+<input 
+  value={newExp.role} 
+  onChange={(e) => setNewExp({ ...newExp, role: e.target.value })} 
+  placeholder="Role" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<input 
+  value={newExp.company} 
+  onChange={(e) => setNewExp({ ...newExp, company: e.target.value })} 
+  placeholder="Company" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<input 
+  value={newExp.year} 
+  onChange={(e) => setNewExp({ ...newExp, year: e.target.value })} 
+  placeholder="Year" 
+  className="border rounded-lg p-2 w-full mt-1" 
+/>
+
+<textarea
+  value={newExp.description}
+  onChange={(e) => setNewExp({ ...newExp, description: e.target.value })}
+  placeholder="Description (Responsibilities, achievements, tools used...)"
+  className="border rounded-lg p-2 w-full mt-1 h-20"
+/>
+
+<button 
+  onClick={addExp} 
+  className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1"
+>
+  Add Experience
+</button>
 
                 {/* --- Skills --- */}
                 <div className="mb-6">
@@ -1548,14 +1672,15 @@ D: (
                 >
                 {templates[selectedTemplate]}
             </div>
+<div className="flex space-x-4 mt-4 justify-end"> {/* justify-end to align to the right */}
           <button onClick={downloadPDF} className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg self-start">Download PDF</button>
             <button
                 onClick={downloadATSPDF}
-                className="mt-2 px-4 py-2 bg-purple-600 text-white rounded-lg self-start"
+                className="mt-4 px-4 py-2 left-0 bg-purple-600 text-white rounded-lg self-start inline-block"
                 >
                 Download ATS-Friendly PDF
             </button>
-
+</div>
         </div>
       </div>
     </div>

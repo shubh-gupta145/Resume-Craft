@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, FileText, Rocket } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function AtsSection() {
   return (
@@ -22,10 +23,12 @@ export default function AtsSection() {
             Our AI-powered resume templates are tested to pass all major ATS
             scanners. Focus on content, we’ll handle the formatting.
           </p>
-
-          <button className="bg-white text-[rgb(217,26,118)] font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300">
+           <Link to="/ats">
+           <button className="bg-white text-[rgb(217,26,118)] font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300">
             Build an ATS-Friendly Resume
           </button>
+          </Link>
+          
         </motion.div>
 
         {/* Right Feature Cards */}

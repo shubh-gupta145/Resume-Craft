@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Footer from "../Home Subcomponent/Footer";
+import { Link } from "react-router-dom";
 
 const resumeData = [
   {
@@ -90,6 +91,8 @@ export default function ResumeExamples() {
 
       {/* Explore Templates Button */}
       <div className="flex justify-center mt-20">
+        
+        <Link to="/template">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -97,6 +100,9 @@ export default function ResumeExamples() {
         >
           Explore Templates →
         </motion.button>
+        
+        </Link>
+        
         
       </div>
       <Footer></Footer>

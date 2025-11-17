@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-
+import { Link } from "react-router-dom";
 import FAQSection from "../Home Subcomponent/FAQ";
 import FeaturesSection from "../Home Subcomponent/Featuressections";
 import ResumeCarousel from "../Home Subcomponent/Template_menu";
@@ -9,6 +9,7 @@ import AtsSection from "../Home Subcomponent/Atsfeatures";
 import GrammarCheckSection from "../Home Subcomponent/Grammerchecksection";
 import ResumeTailoringSection from "../Home Subcomponent/Resumetailorialsection";
 import Footer from "../Home Subcomponent/Footer";
+
 
 
 
@@ -43,9 +44,14 @@ function Home_content() {
                   Create an ATS-friendly professional resume in just a few steps.
                 </p>
 
+                
+
+                <Link to="/profile">
                 <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:bg-blue-700 transition">
                   Start Building →
                 </button>
+                </Link>
+                
               </motion.div>
 
               {/* RIGHT HERO IMAGE FLIP CARD */}
@@ -148,8 +154,12 @@ function Home_content() {
               transition={{ delay: 0.4, duration: 0.8 }}
               viewport={{ once: true }}
             >
-              View All Resume Examples
+              <Link to="/resume_example">
+                  View All Resume Examples
+              
+              </Link>
               <ArrowRight className="w-4 h-4" />
+              
             </motion.a>
           </section>
 
@@ -159,9 +169,14 @@ function Home_content() {
           <section className="text-center py-20 bg-blue-600 text-white">
             <h2 className="text-4xl font-bold mb-6">Ready to Create Your Resume?</h2>
             <p className="mb-6 text-lg">Build a professional resume in minutes.</p>
+            
+            <Link to="/profile">
             <button className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:bg-gray-200 transition">
               Get Started Now →
             </button>
+            </Link>
+            
+
           </section>
         </div>
 

@@ -38,37 +38,48 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const API = import.meta.env.VITE_API_URL; 
-      const url = isLogin
-        ? `${API}/api/v1/login`
-        : `${API}/api/v1/users`;
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-      const bodyData = isLogin
-        ? { email: formData.email, password: formData.password }
-        : formData;
+      try {
+        const API = import.meta.env.VITE_API_URL;
 
-      const res = await axios.post(url, bodyData);
-      if (res.data.success) {
-        
-        if (isLogin) {
-          // For Login
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("user", JSON.stringify(res.data.user));
-          navigate("/profile");
+        const url = isLogin
+          ? `${API}/api/v1/login`
+          : `${API}/api/v1/users`;
+
+        const bodyData = isLogin
+          ? { email: formData.email, password: formData.password }
+          : formData;
+
+        const res = await axios.post(url, bodyData);
+
+        if (res.data.success) {
+          if (isLogin) {
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            navigate("/profile");
+          } else {
+            alert("User created successfully! Please login.");
+            navigate("/login");
+          }
+        }
+      } catch (error) {
+        console.error(error);
+
+        if (error.response) {
+          alert(error.response.data.message);
+
+          // Only go to server error for actual backend problems
+          if (error.response.status >= 500) {
+            navigate("/server-error");
+          }
         } else {
-          // For Signup
-          alert("User created successfully! Please login.");
-          navigate("/login");
+          navigate("/server-error");
         }
       }
-    } catch (error) {
-      console.error(error);
-      navigate("/server-error");
-    }
-  };
+    };
+
 
   return (
     <div className="bg-gradient-to-r from-blue-600 to-indigo-600 min-h-screen flex items-center justify-center px-4">

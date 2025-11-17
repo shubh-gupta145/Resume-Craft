@@ -79,9 +79,9 @@ async function login(req, res) {
       message: "Logged in successfully!",
       token, 
       user: {
-        id: existingUser._id,
-        name: existingUser.name,
-        email: existingUser.email,
+      _id: existingUser._id,
+      name: existingUser.name,
+      email: existingUser.email,
       },
     });
 
@@ -140,34 +140,46 @@ async function getUserbyID(req, res) {
     }
 }
 async function updateUser(req, res) {
-    const { id } = req.params;
-    const {name,email,password}= req.body;
-    try {
-        const user = await User.findById(id);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-        }
-        const updatedUser=await User.findByIdAndUpdate(id,{name,email,password})
+  const { id } = req.params;
+  const { name, email, password } = req.body;
 
-        return res.status(200).json({
-            success: true,
-            message: "User Updated successfully",
-            updatedUser: {
-                _id: updatedUser._id,
-                name: updatedUser.name,
-                email: updatedUser.email
-            }
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Server error while updating user"
-        });
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
+
+    let updatedData = { name, email };
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updatedData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      updatedUser: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Server error while updating user",
+    });
+  }
 }
+
 async function deleteUser(req, res) {
     const { id } = req.params;
     try {

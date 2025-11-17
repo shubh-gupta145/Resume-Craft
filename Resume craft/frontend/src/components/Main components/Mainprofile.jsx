@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { LogOut, Edit3, Save } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -31,13 +32,58 @@ const ProfilePage = () => {
   };
 
   // Save profile changes
-  const handleSave = () => {
-    const updatedUser = { ...user, ...formData };
-    setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+  const handleSave = async () => {
+  try {
+    const API = import.meta.env.VITE_API_URL;
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
 
-    setEditMode(false);
-  };
+    if (!storedUser || (!storedUser._id && !storedUser.id)) {
+      return alert("User not logged in!");
+    }
+
+    const userId = storedUser._id || storedUser.id;
+
+    // Use optional chaining and fallback to empty string
+    const name = formData.name?.trim();
+    const email = formData.email?.trim();
+    const password = formData.password?.trim();
+
+    const body = {};
+    if (name) body.name = name;
+    if (email) body.email = email;
+    if (password) body.password = password;
+
+    const res = await axios.patch(
+      `${API}/api/v1/users/${userId}`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (res.data.success) {
+      // Update localStorage (so UI updates instantly)
+       setUser(res.data.updatedUser);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.updatedUser)
+      );
+
+      setEditMode(false);
+      alert("Profile updated successfully!");
+    }
+
+  } catch (err) {
+    console.log(err);
+    alert("Something went wrong");
+  }
+};
+
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center py-10 px-4 text-white">
@@ -69,7 +115,7 @@ const ProfilePage = () => {
           <div className="flex justify-end mb-4">
             {!editMode ? (
               <button
-                onClick={() => setEditMode(true)}
+                onClick={() => {setEditMode(true)}}
                 className="px-4 py-2 bg-yellow-400 text-black rounded-lg font-medium flex items-center gap-2"
               >
                 <Edit3 size={18} /> Edit

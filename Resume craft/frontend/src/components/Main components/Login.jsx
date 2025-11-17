@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";   // ✅ required
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import axios from "axios";
 
-function Profile() {
+function Login() {
   const navigate = useNavigate();       // ✅ initialize navigate
   const [isLogin, setIsLogin] = useState(true);
 
@@ -15,6 +15,24 @@ function Profile() {
     password: "",
     confirmPassword: ""
   });
+    useEffect(() => {
+  // reset when component loads
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    });
+    }, []);
+    useEffect(() => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    });
+    }, [isLogin]);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,25 +41,32 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const API = import.meta.env.VITE_API_URL; 
       const url = isLogin
-        ? "http://localhost:3000/api/v1/login"
-        : "http://localhost:3000/api/v1/users";
+        ? `${API}/api/v1/login`
+        : `${API}/api/v1/users`;
 
       const bodyData = isLogin
         ? { email: formData.email, password: formData.password }
         : formData;
 
       const res = await axios.post(url, bodyData);
-
       if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-
-        navigate("/profile");  // ✅ correct route path
+        
+        if (isLogin) {
+          // For Login
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          navigate("/profile");
+        } else {
+          // For Signup
+          alert("User created successfully! Please login.");
+          navigate("/login");
+        }
       }
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || "Something went wrong!");
+      navigate("/server-error");
     }
   };
 
@@ -59,7 +84,7 @@ function Profile() {
         </h1>
 
         {/* Form */}
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        <form className="space-y-5" onSubmit={handleSubmit} autoComplete="off">
           {!isLogin && (
             <motion.input
               type="text"
@@ -154,4 +179,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Login;

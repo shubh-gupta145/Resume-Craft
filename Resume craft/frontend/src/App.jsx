@@ -9,6 +9,8 @@ import Template_home from "./components/Main components/Template_home";
 
 import ProfilePage from "./components/Main components/Mainprofile"
 import ProtectedRoute from "./components/Main components/ProtectedRoute";
+import NotFound from "./components/Main components/NotFound";
+import ErrorPage from "./components/Main components/ErrorPage";
 
 function App() {
   return (
@@ -28,7 +30,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+          <Route path="/server-error" element={<ErrorPage/>}/>
+          <Route path="*" element={<NotFound/>}/>
       </Routes>
     </>
   );

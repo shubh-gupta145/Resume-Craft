@@ -53,11 +53,12 @@ const Result = () => {
     formData.append('jobProfile', jobProfile);
 
     try {
+      const API = import.meta.env.VITE_API_URL;  
       setIsLoading(true);
       setResultText('⏳ Analyzing your resume...');
       setShowResult(true);
       const token = localStorage.getItem("token");
-      const res = await axios.post('http://localhost:3000/api/v1/atsScore', formData, {
+      const res = await axios.post(`${API}/api/v1/atsScore`, formData, {
         headers: { 'Content-Type': 'multipart/form-data',"Authorization": `Bearer ${token}`},
       });
       const data = res.data;

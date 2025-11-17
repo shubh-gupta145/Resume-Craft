@@ -32,7 +32,6 @@ async function createUser(req, res) {
     return res.status(201).json({
       success: true,
       message: "User created successfully!",
-      token,
       user: {
         id: newUser._id,
         name: newUser.name,

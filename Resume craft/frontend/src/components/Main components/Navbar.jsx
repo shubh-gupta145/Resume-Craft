@@ -16,6 +16,7 @@ function Navbar() {
         ? "bg-blue-700 text-white"
         : "text-white hover:bg-blue-500 hover:text-white"
     }`;
+    const isLoggedIn = localStorage.getItem("token");
 
   return (
     <nav className="bg-blue-600 text-white shadow-md sticky top-0 z-50">
@@ -47,9 +48,15 @@ function Navbar() {
             <Link to="/template" className={linkClasses("/template")}>
               Templates
             </Link>
-            <Link to="/login" className={linkClasses("/login")}>
-              Profile
-            </Link>
+            {isLoggedIn ? (
+              <Link to="/profile" className={linkClasses("/profile")}>
+                Profile
+              </Link>
+              ) : (
+              <Link to="/login" className={linkClasses("/login")}>
+                Login
+              </Link>
+            )}
           </div>
 
           {/* MOBILE MENU BUTTON */}

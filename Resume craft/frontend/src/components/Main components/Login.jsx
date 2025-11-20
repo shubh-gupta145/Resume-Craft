@@ -148,32 +148,6 @@ function Login() {
           <span className="mx-4 text-gray-500">OR</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-
-        {/* Social Login */}
-        <div className="space-y-3">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full flex items-center justify-center gap-3 border py-3 rounded-lg hover:bg-gray-100 transition"
-          >
-            <FcGoogle className="text-2xl" />
-            <span className="font-semibold text-gray-700">
-              Continue with Google
-            </span>
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full flex items-center justify-center gap-3 border py-3 rounded-lg hover:bg-gray-100 transition"
-          >
-            <FaGithub className="text-2xl text-gray-800" />
-            <span className="font-semibold text-gray-700">
-              Continue with GitHub
-            </span>
-          </motion.button>
-        </div>
-
         {/* Toggle between login / signup */}
         <p className="text-center mt-6 text-gray-600">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}

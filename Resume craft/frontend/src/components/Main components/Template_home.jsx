@@ -935,144 +935,147 @@ D: (
     E: (
 <TemplateCard variant="light">
   <div className="grid grid-cols-[1fr_2.5fr] h-full font-sans">
-      
-      {/* LEFT COLUMN: MAROON SIDEBAR (Photo, Name, Contact, Skills) */}
-      <div className="bg-[#800000] text-white p-6 space-y-6">
-          
-          {/* Profile Picture */}
-          <div className="w-32 h-32 rounded-full overflow-hidden mx-auto border-4 border-white bg-gray-200 flex items-center justify-center mb-6">
-              <div className="text-xl font-bold text-gray-600">{initials || "YN"}</div>
-          </div>
 
-          {/* Name */}
-          <div className="text-center">
-              <h1 className="text-3xl font-bold uppercase tracking-wide">{formData.name || "Your Name"}</h1>
-          </div>
+    {/* LEFT COLUMN: MAROON SIDEBAR (Photo, Name, Contact, Skills) */}
+    <div className="bg-[#800000] text-white p-6 space-y-6">
 
-          {/* Contact Information */}
-          <div className="text-sm space-y-4">
-              <div className="flex items-center gap-3">
-                  <span className="text-2xl">📧</span>
-                  <div>
-                      <div className="font-semibold">Email:</div>
-                      <div className="text-white/90 break-all">{formData.contact?.split(' | ')[0] || 'yourname@example.com'}</div>
-                  </div>
-              </div>
-              <div className="flex items-center gap-3">
-                  <span className="text-2xl">📞</span>
-                  <div>
-                      <div className="font-semibold">Phone:</div>
-                      <div className="text-white/90">{formData.contact?.split(' | ')[1] || '(555) 555-5555'}</div>
-                  </div>
-              </div>
-          </div>
-
-          {/* SKILLS / SOFT SKILLS */}
-          <div>
-              <h3 className="text-xl font-bold uppercase border-b border-white/30 pb-1 mb-2">Skills</h3>
-              <ul className="list-disc ml-4 text-white/90 text-sm space-y-1">
-                {(formData.skills?.length > 0 ? formData.skills : ["Hardworking and reliable", "Good communication skills", "Microsoft Office"]).map((s, i) => <li key={i}>{s}</li>)}
-              </ul>
-          </div>
+      {/* Profile Picture */}
+      <div className="w-32 h-32 rounded-full overflow-hidden mx-auto border-4 border-white bg-gray-200 flex items-center justify-center mb-6">
+        <div className="text-xl font-bold text-gray-600">{initials || "YN"}</div>
       </div>
 
-      {/* RIGHT COLUMN: MAIN CONTENT */}
-      <div className="p-6 text-gray-800 space-y-8">
-          
-          {/* --- ABOUT ME --- */}
-          <div>
-              <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl text-[#800000]">📝</span>
-                  <h3 className="text-xl font-bold uppercase">About Me</h3>
-              </div>
-              <p className="text-base">{formData.about || "Write a short summary about yourself..."}</p>
-          </div>
-
-          {/* --- EDUCATION --- */}
-          <div>
-              <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl text-[#800000]">🎓</span>
-                  <h3 className="text-xl font-bold uppercase">Education</h3>
-              </div>
-              <ul className="list-none ml-0 text-base space-y-3">
-                {(formData.education?.length > 0 ? formData.education : [{
-                  degree: "High School Diploma",
-                  school: "Virginia Valley High School",
-                  year: "2024",
-                  description: "Graduated with Honors."
-                }]).map((edu, i) => (
-                  <li key={i} className="flex justify-between">
-                    <div>
-                      <p className="font-semibold">{edu.degree}</p>
-                      <p>{edu.school}</p>
-                      {edu.description && <p className="text-sm text-gray-600 mt-1">{edu.description}</p>}
-                    </div>
-                    <div className="text-sm text-gray-600">{edu.year || "Year"}</div>
-                  </li>
-                ))}
-              </ul>
-          </div>
-
-          {/* --- EXPERIENCE --- */}
-          <div>
-              <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl text-[#800000]">💼</span>
-                  <h3 className="text-xl font-bold uppercase">Work Experience</h3>
-              </div>
-              <ul className="list-none ml-0 text-base space-y-3">
-                {(formData.experience?.length > 0 ? formData.experience : [
-                  { role: "Office Assistant", company: "Hardware Supply", year: "2023", description: "Assisted with daily tasks." },
-                  { role: "Teaching Assistant", company: "XYZ School", year: "2022", description: "Supported classroom activities." }
-                ]).map((ex, i) => (
-                  <li key={i} className="flex justify-between">
-                    <div>
-                      <p className="font-semibold">{ex.role}{ex.company ? `, ${ex.company}` : ""}</p>
-                      {ex.description && <p className="text-sm text-gray-600 mt-1">{ex.description}</p>}
-                    </div>
-                    <div className="text-sm text-gray-600">{ex.year || "Year"}</div>
-                  </li>
-                ))}
-              </ul>
-          </div>
-
-          {/* --- PROJECTS --- */}
-          <div>
-              <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl text-[#800000]">📂</span>
-                  <h3 className="text-xl font-bold uppercase">Projects</h3>
-              </div>
-              <ul className="list-disc ml-8 text-base space-y-2">
-                {(formData.projects?.length > 0 ? formData.projects : [
-                  { projectName: "Science Fair Project", description: "Built a model volcano for the school science fair." },
-                  { projectName: "Community Garden", description: "Organized a student-led community garden project." }
-                ]).map((pr, i) => (
-                  <li key={i}>
-                    <p className="font-semibold">{pr.projectName || pr.name}</p>
-                    {pr.description && <p className="text-sm text-gray-600 mt-1">{pr.description}</p>}
-                  </li>
-                ))}
-              </ul>
-          </div>
-
-          {/* --- CERTIFICATIONS --- */}
-          <div>
-              <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl text-[#800000]">📜</span>
-                  <h3 className="text-xl font-bold uppercase">Certifications</h3>
-              </div>
-              <ul className="list-disc ml-8 text-base space-y-2">
-                {(formData.certifications?.length > 0 ? formData.certifications : [
-                  { name: "Google Analytics Certified", issuedBy: "Google", description: "Completed advanced analytics training." }
-                ]).map((ce, i) => (
-                  <li key={i}>
-                    <p className="font-semibold">{ce.name}</p>
-                    <p className="text-sm text-gray-600">Issued by: {ce.issuedBy}</p>
-                    {ce.description && <p className="text-sm text-gray-600 mt-1">{ce.description}</p>}
-                  </li>
-                ))}
-              </ul>
-          </div>
+      {/* Name */}
+      <div className="text-center">
+        <h1 className="text-3xl font-bold uppercase tracking-wide">{formData.name || "Your Name"}</h1>
       </div>
+
+      {/* Contact Information */}
+      <div className="text-sm space-y-4">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">📧</span>
+          <div>
+            <div className="font-semibold">Email:</div>
+            <div className="text-white/90 break-all">{formData.contact?.split(' | ')[0] || 'yourname@example.com'}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">📞</span>
+          <div>
+            <div className="font-semibold">Phone:</div>
+            <div className="text-white/90">{formData.contact?.split(' | ')[1] || '(555) 555-5555'}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* SKILLS / SOFT SKILLS */}
+      <div>
+        <h3 className="text-xl font-bold uppercase border-b border-white/30 pb-1 mb-2">Skills</h3>
+        <ul className="list-disc ml-4 text-white/90 text-sm space-y-1">
+          {(formData.skills?.length > 0 ? formData.skills : ["Hardworking and reliable", "Good communication skills", "Microsoft Office"]).map((s, i) => <li key={i}>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    {/* RIGHT COLUMN: MAIN CONTENT */}
+    <div className="p-6 text-gray-800 space-y-8">
+
+      {/* --- ABOUT ME --- */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl text-[#800000]">📝</span>
+          <h3 className="text-xl font-bold uppercase">About Me</h3>
+        </div>
+        <p className="text-base">{formData.about || "Write a short summary about yourself..."}</p>
+      </div>
+
+      {/* --- EDUCATION --- */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl text-[#800000]">🎓</span>
+          <h3 className="text-xl font-bold uppercase">Education</h3>
+        </div>
+        <ul className="list-none ml-0 text-base space-y-3">
+          {(formData.education?.length > 0 ? formData.education : [{
+            degree: "High School Diploma",
+            school: "Virginia Valley High School",
+            year: "2024",
+            description: "Graduated with Honors."
+          }]).map((edu, i) => (
+            <li key={i} className="flex justify-between">
+              <div>
+                <span className="font-semibold">{edu.degree} - </span>
+                <span>{edu.school}</span>
+                {edu.description && <p className="text-sm text-gray-600 mt-1">{edu.description}</p>}
+              </div>
+              <div className="text-sm text-gray-600">{edu.year || "Year"}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* --- EXPERIENCE --- */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl text-[#800000]">💼</span>
+          <h3 className="text-xl font-bold uppercase">Work Experience</h3>
+        </div>
+        <ul className="list-none ml-0 text-base space-y-3">
+          {(formData.experience?.length > 0 ? formData.experience : [
+            { role: "Office Assistant", company: "Hardware Supply", year: "2023", description: "Assisted with daily tasks." },
+            { role: "Teaching Assistant", company: "XYZ School", year: "2022", description: "Supported classroom activities." }
+          ]).map((ex, i) => (
+            <li key={i} className="flex justify-between">
+              <div>
+                <p className="font-semibold">{ex.role}{ex.company ? `, ${ex.company}` : ""}</p>
+                {ex.description && <p className="text-sm text-gray-600 mt-1">{ex.description}</p>}
+              </div>
+              <div className="text-sm text-gray-600">{ex.year || "Year"}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* --- PROJECTS --- */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl text-[#800000]">📂</span>
+          <h3 className="text-xl font-bold uppercase">Projects</h3>
+        </div>
+        <ul className="list-disc ml-8 text-base space-y-2">
+          {(formData.projects?.length > 0 ? formData.projects : [
+            { projectName: "Science Fair Project", description: "Built a model volcano for the school science fair." },
+            { projectName: "Community Garden", description: "Organized a student-led community garden project." }
+          ]).map((pr, i) => (
+            <li key={i}>
+              <p className="font-semibold">{pr.title}</p>
+              {pr.description && <p className="text-sm text-gray-600 mt-1">{pr.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* --- CERTIFICATIONS --- */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl text-[#800000]">📜</span>
+          <h3 className="text-xl font-bold uppercase">Certifications</h3>
+        </div>
+        <ul className="list-disc ml-8 text-base space-y-2">
+          {(formData.certifications?.length > 0 ? formData.certifications : [
+            { name: "Google Analytics Certified", issuedBy: "Google", description: "Completed advanced analytics training." }
+          ]).map((ce, i) => (
+            <li key={i} className="flex justify-between">
+              <div>
+                <p className="font-semibold">{ce.name}</p>
+                {ce.description && <p className="text-sm text-gray-600 mt-1">{ce.description}</p>}
+              </div>
+              <div className="text-sm text-gray-600 text-right">{ce.issuer}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
   </div>
 </TemplateCard>
 
@@ -1622,7 +1625,7 @@ D: (
     description: "Description of the project..."
   }]).map((pr, i) => (
     <div key={i} className="mt-3 text-sm">
-      <div className="font-semibold">{pr.projectName || pr.name}</div>
+      <div className="font-semibold">{pr.title}</div>
       <p className="text-white/80 mt-1">{pr.description}</p>
     </div>
   ))}
@@ -1649,8 +1652,6 @@ D: (
     </div>
   </div>
 </TemplateCard>
-
-
     ),
   };
   return (
@@ -1738,8 +1739,6 @@ D: (
   className="border p-2 rounded-lg w-full"
 />
 <button onClick={addEdu} className="px-3 py-2 bg-blue-500 text-white rounded-lg mt-1">Add Education</button>
-
-{/* Added Education Entries - जोड़ी गई शिक्षा प्रविष्टियाँ */}
 {formData.education.map((ed, i) => (
   <div key={i} className="flex justify-between items-center bg-gray-50 p-2 rounded mt-1">
     <span className="text-sm">{ed.degree} at {ed.school} ({ed.year})</span>
